@@ -95,22 +95,22 @@ export const generateCreativeItinerary = async (formData) => {
 // Generate real places itinerary - ПРОСТАЯ НАДЕЖНАЯ СИСТЕМА
 export const generateRealPlacesItinerary = async (formData) => {
   try {
-    console.log('🌍 Generating real places itinerary with:', formData);
-    // Используем новую функцию v3 для избежания проблем с кешированием
+    console.log('🌍 Generating real places itinerary with v3 system:', formData);
     const response = await api.post('/api/generate-itinerary-v3', formData);
-    console.log('✅ Real places itinerary response:', response.data);
+    console.log('✅ Real places itinerary v3 response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Real places itinerary generation error:', error);
-    // Fallback к старой функции если новая не работает
-    try {
-      console.log('🔄 Trying fallback to real-places-itinerary...');
-      const fallbackResponse = await api.post('/api/real-places-itinerary', formData);
-      return fallbackResponse.data;
-    } catch (fallbackError) {
-      console.error('Fallback also failed:', fallbackError);
-      throw error; // Throw original error
-    }
+    console.error('❌ Generate-itinerary-v3 failed:', error);
+    console.error('Error details:', {
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      message: error.message
+    });
+    
+    // НЕ используем fallback - пусть ошибка пройдет дальше
+    // Это поможет увидеть реальную проблему
+    throw error;
   }
 };
 
