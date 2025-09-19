@@ -141,12 +141,17 @@ export default function ItineraryPage() {
           throw new Error('No places found in real places itinerary');
         }
       } catch (apiError) {
-        console.error('❌ Real places API failed:', apiError);
+        console.error('❌ DETAILED API ERROR:', {
+          message: apiError.message,
+          status: apiError.response?.status,
+          statusText: apiError.response?.statusText,
+          data: apiError.response?.data,
+          config: apiError.config,
+          fullError: apiError
+        });
         
-        // Используем локальный fallback с правильной структурой
-        console.log('🔄 Using local fallback itinerary...');
-        const fallbackData = generateFallbackItinerary(formData);
-        setItinerary(fallbackData);
+        // ВРЕМЕННО: Показываем ошибку пользователю вместо fallback
+        setError(`API Error: ${apiError.message} (Status: ${apiError.response?.status})`);
         return;
       }
       
