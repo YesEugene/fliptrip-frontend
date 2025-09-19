@@ -123,8 +123,12 @@ export const generateRealPlacesItinerary = async (formData) => {
             category: activity.category,
             duration: activity.duration,
             price: activity.price,
-            location: `${formData.city} - ${activity.category}`,
-            photos: activity.photos || ['https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop&q=80']
+            location: activity.location || `${formData.city} City Center`,
+            photos: activity.photos || ['https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop&q=80'],
+            recommendations: activity.recommendations || `Perfect for ${formData.audience}. Enjoy the experience!`,
+            priceRange: activity.priceRange || `${activity.price}€`,
+            rating: activity.rating || 4.0,
+            address: activity.location || `${formData.city} City Center`
           }]
         })) : []
       }],
