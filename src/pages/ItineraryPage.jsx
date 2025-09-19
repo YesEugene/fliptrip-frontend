@@ -125,31 +125,34 @@ export default function ItineraryPage() {
       setLoading(true);
       console.log('🌍 Starting REAL PLACES itinerary generation...');
       
-      // ОСНОВНАЯ система с реальными местами (уже работает!)
-      const data = await generateRealPlacesItinerary(formData);
-      console.log('✅ Received real places itinerary data:', data);
-      
-      // Проверяем, есть ли места в плане
-      const hasPlaces = data.daily_plan?.[0]?.blocks?.length > 0;
-      
-      if (hasPlaces) {
-        setItinerary(data);
-        return;
-      } else {
-        console.log('⚠️ Real places API returned empty itinerary, this should not happen');
-        throw new Error('No places found in real places itinerary');
-      }
-      
-      // Fallback к рабочему API
       try {
-        const data = await generateSmartItineraryV2(formData);
-        console.log('✅ Received fallback itinerary data:', data);
-        setItinerary(data);
-      } catch (fallbackError) {
-        console.error('❌ Fallback also failed:', fallbackError);
-        setError(`Failed to generate itinerary for ${formData.city}. Please try again later.`);
+        // ОСНОВНАЯ система с реальными местами
+        const data = await generateRealPlacesItinerary(formData);
+        console.log('✅ Received real places itinerary data:', data);
+        
+        // Проверяем, есть ли места в плане
+        const hasPlaces = data.daily_plan?.[0]?.blocks?.length > 0;
+        
+        if (hasPlaces) {
+          setItinerary(data);
+          return;
+        } else {
+          console.log('⚠️ Real places API returned empty itinerary');
+          throw new Error('No places found in real places itinerary');
+        }
+      } catch (apiError) {
+        console.error('❌ Real places API failed:', apiError);
+        
+        // Используем локальный fallback с правильной структурой
+        console.log('🔄 Using local fallback itinerary...');
+        const fallbackData = generateFallbackItinerary(formData);
+        setItinerary(fallbackData);
+        return;
       }
       
+    } catch (error) {
+      console.error('❌ Complete failure:', error);
+      setError(`Failed to generate itinerary for ${formData.city}. Please try again later.`);
     } finally {
       setLoading(false);
     }
@@ -157,13 +160,15 @@ export default function ItineraryPage() {
 
   const generateFallbackItinerary = (formData) => {
     return {
+      title: `Epic amazing discoveries in ${formData.city}`,
+      subtitle: `${formData.date} for ${formData.audience} - discover the magic of ${formData.city}. Experience authentic moments, create lasting memories, and let the city's unique charm captivate your heart. An extraordinary adventure awaits your arrival.`,
       city: formData.city,
       date: formData.date,
-      meta: {
-        creative_title: `Your Perfect Day in ${formData.city}`,
-        creative_subtitle: "A personalized itinerary crafted just for you",
-        weather: { t_min: 15, t_max: 25, precip_prob: 20 },
-        clothing_advice: "Comfortable walking shoes and layers"
+      budget: formData.budget || '800',
+      weather: {
+        forecast: `Perfect weather for exploring ${formData.city}`,
+        clothing: 'Comfortable walking shoes and light layers',
+        tips: 'Stay hydrated and bring a camera!'
       },
       daily_plan: [{
         blocks: [
