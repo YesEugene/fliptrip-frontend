@@ -11,9 +11,9 @@ const getApiBaseUrl = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // В продакшене используем backend URL
+  // В продакшене используем backend URL  
   if (import.meta.env.PROD) {
-    return 'https://fliptripbackend.vercel.app'; // Правильный URL backend
+    return 'https://fliptripbackend.vercel.app'; // Backend URL правильный
   }
   
   // В разработке используем localhost
