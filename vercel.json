@@ -1,20 +1,5 @@
 {
-  "routes": [
-    {
-      "src": "/success",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/itinerary",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/preview",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+  "rewrites": [
+    { "source": "/((?!api/.*).*)", "destination": "/index.html" }
   ]
 }
