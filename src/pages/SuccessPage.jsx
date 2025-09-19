@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import FlipTripLogo from '../assets/FlipTripLogo.svg';
+import { generateRealPlacesItinerary, sendEmail } from '../services/api';
 
 export default function SuccessPage() {
   const navigate = useNavigate();
@@ -27,49 +28,39 @@ export default function SuccessPage() {
 
   const sendEmailWithItinerary = async () => {
     try {
-      // First, generate the itinerary
-      const itineraryResponse = await fetch('http://localhost:3000/api/smart-itinerary', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          city: formData.city,
-          audience: formData.audience,
-          interests: formData.interests,
-          budget: formData.budget,
-          date: formData.date
-        }),
+      console.log('🌍 Generating real places itinerary for success page...');
+      
+      // First, generate the real places itinerary
+      const itineraryData = await generateRealPlacesItinerary({
+        city: formData.city,
+        audience: formData.audience,
+        interests: formData.interests,
+        budget: formData.budget,
+        date: formData.date
       });
 
-      if (itineraryResponse.ok) {
-        const itineraryData = await itineraryResponse.json();
-        setItinerary(itineraryData);
+      console.log('✅ Real places itinerary generated:', itineraryData);
+      setItinerary(itineraryData);
 
-        // Then send the email
-        const emailResponse = await fetch('http://localhost:3000/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            itinerary: itineraryData,
-            formData: formData
-          }),
+      // Then send the email
+      if (formData.email) {
+        const emailResult = await sendEmail({
+          email: formData.email,
+          itinerary: itineraryData,
+          formData: formData
         });
 
-        if (emailResponse.ok) {
-          setEmailSent(true);
-          console.log('Email sent successfully');
-        } else {
-          console.error('Failed to send email');
-        }
-      } else {
-        console.error('Failed to generate itinerary');
+        console.log('📧 Email result:', emailResult);
+        setEmailSent(true);
       }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error in sendEmailWithItinerary:', error);
+      // Set a fallback itinerary so the page still works
+      setItinerary({
+        title: `Exploring ${formData.city}`,
+        subtitle: 'Your adventure awaits!',
+        activities: []
+      });
     }
   };
 
