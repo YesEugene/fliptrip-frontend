@@ -92,24 +92,51 @@ export const generateCreativeItinerary = async (formData) => {
   }
 };
 
-// Generate real places itinerary - ПРОСТАЯ НАДЕЖНАЯ СИСТЕМА
+// Generate real places itinerary - используем РАБОТАЮЩИЙ smart-itinerary API
 export const generateRealPlacesItinerary = async (formData) => {
   try {
-    console.log('🌍 Generating real places itinerary with v3 system:', formData);
-    const response = await api.post('/api/generate-itinerary-v3', formData);
-    console.log('✅ Real places itinerary v3 response:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('❌ Generate-itinerary-v3 failed:', error);
-    console.error('Error details:', {
-      status: error.response?.status,
-      statusText: error.response?.statusText,
-      data: error.response?.data,
-      message: error.message
-    });
+    console.log('🌍 Using working smart-itinerary API:', formData);
     
-    // НЕ используем fallback - пусть ошибка пройдет дальше
-    // Это поможет увидеть реальную проблему
+    // Используем РАБОЧИЙ API smart-itinerary
+    const response = await api.post('/api/smart-itinerary', formData);
+    console.log('✅ Smart itinerary response:', response.data);
+    
+    // Конвертируем ответ в нужную структуру daily_plan
+    const smartData = response.data;
+    const convertedData = {
+      title: smartData.title || `Epic amazing discoveries in ${formData.city}`,
+      subtitle: smartData.subtitle || `${formData.date} for ${formData.audience} - discover the magic of ${formData.city}`,
+      date: smartData.date || formData.date,
+      budget: smartData.budget || formData.budget,
+      weather: smartData.weather || {
+        forecast: `Perfect weather for exploring ${formData.city}`,
+        clothing: 'Comfortable walking shoes and light layers',
+        tips: 'Stay hydrated and bring a camera!'
+      },
+      daily_plan: [{
+        date: smartData.date || formData.date,
+        blocks: smartData.activities ? smartData.activities.map(activity => ({
+          time: activity.time,
+          items: [{
+            title: activity.name || activity.title,
+            description: activity.description,
+            category: activity.category,
+            duration: activity.duration,
+            price: activity.price,
+            location: `${formData.city} - ${activity.category}`,
+            photos: activity.photos || ['https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop&q=80']
+          }]
+        })) : []
+      }],
+      totalCost: smartData.totalCost || 0,
+      withinBudget: smartData.withinBudget || true
+    };
+    
+    console.log('✅ Converted to daily_plan structure:', convertedData);
+    return convertedData;
+    
+  } catch (error) {
+    console.error('❌ Smart itinerary API failed:', error);
     throw error;
   }
 };
