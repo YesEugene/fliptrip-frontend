@@ -29,17 +29,29 @@ const api = axios.create({
   },
 });
 
-// Generate preview with title and subtitle
+// Generate preview with title and subtitle - используем smart-itinerary
 export const generatePreview = async (formData) => {
   try {
-    const response = await api.post('/api/generate-preview', {
+    console.log('🔍 Preview: Using smart-itinerary API for preview generation');
+    
+    const response = await api.post('/api/smart-itinerary', {
       city: formData.city,
       audience: formData.audience,
       interests: formData.interests,
       date: formData.date,
       budget: formData.budget,
     });
-    return response.data;
+    
+    // Возвращаем только данные для preview (title, subtitle, weather)
+    const fullData = response.data;
+    return {
+      title: fullData.title,
+      subtitle: fullData.subtitle,
+      weather: fullData.weather,
+      city: fullData.city,
+      date: fullData.date,
+      budget: fullData.budget
+    };
   } catch (error) {
     console.error('Preview generation error:', error);
     throw error;
