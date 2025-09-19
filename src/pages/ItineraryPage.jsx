@@ -215,33 +215,51 @@ export default function ItineraryPage() {
             time: "11:30",
             items: [{
               title: "Local Museum Visit",
-              why: "Dive deeper into the city's culture and art",
+              why: "Dive deeper into the city's rich cultural heritage through carefully curated exhibitions that showcase local artists, historical artifacts, and contemporary works. This intimate museum offers a perfect respite from the bustling streets while providing deep insights into the region's artistic evolution.",
               address: "City Art Museum, Museum Street 1",
               approx_cost: "12-15€",
-              tips: "Check for student discounts, audio guide recommended",
+              tips: "Check for student discounts, audio guide recommended. Photography may be restricted in certain areas.",
               duration: "1.5 hours",
+              photos: [
+                { url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1566127444979-b3d2b654e3d5?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1566127444979-b3d2b654e3d5?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1594736797933-d0f06ba14d6d?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1594736797933-d0f06ba14d6d?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=200&h=150&fit=crop&q=80', source: 'unsplash' }
+              ]
             }]
           },
           {
             time: "13:00",
             items: [{
               title: "Traditional Lunch",
-              why: "Experience authentic local cuisine",
+              why: "Savor the authentic flavors that define this region's culinary identity. This family-run establishment has been serving traditional recipes passed down through generations, using locally sourced ingredients and time-honored cooking techniques that create an unforgettable dining experience.",
               address: "Local Restaurant, Food Street 15",
               approx_cost: "25-35€",
-              tips: "Try the house specialty, book ahead for popular places",
+              tips: "Try the house specialty, book ahead for popular places. Ask about wine pairings with local varieties.",
               duration: "1 hour",
+              photos: [
+                { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=150&fit=crop&q=80', source: 'unsplash' }
+              ]
             }]
           },
           {
             time: "14:30",
             items: [{
               title: "Afternoon Stroll & Shopping",
-              why: "Relax and pick up souvenirs",
+              why: "Discover unique local crafts and artisan products while enjoying a leisurely walk through the vibrant shopping district. This area perfectly blends traditional markets with modern boutiques, offering everything from handmade souvenirs to contemporary fashion, all while soaking in the local atmosphere.",
               address: "Shopping District, Market Street",
               approx_cost: "20-50€",
-              tips: "Bargain at local markets, check opening hours",
+              tips: "Bargain at local markets, check opening hours. Look for locally made items that reflect the city's character.",
               duration: "1.5 hours",
+              photos: [
+                { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=200&h=150&fit=crop&q=80', source: 'unsplash' },
+                { url: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=600&fit=crop&q=80', thumbnail: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=200&h=150&fit=crop&q=80', source: 'unsplash' }
+              ]
             }]
           },
           {
