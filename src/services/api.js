@@ -3,13 +3,17 @@ import axios from 'axios';
 // Автоматическое определение API URL для разных окружений
 const getApiBaseUrl = () => {
   // Если указана переменная окружения, используем её
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace('/api', ''); // Убираем /api из конца
+  }
+  
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // В продакшене (Vercel) используем относительные пути
+  // В продакшене используем backend URL
   if (import.meta.env.PROD) {
-    return ''; // Относительные пути к /api/*
+    return 'https://fliptripbackend.vercel.app'; // Прямая ссылка на backend
   }
   
   // В разработке используем localhost
