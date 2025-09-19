@@ -34,7 +34,7 @@ export const generatePreview = async (formData) => {
   try {
     console.log('🔍 Preview: Using smart-itinerary API for preview generation');
     
-    const response = await api.post('/api/test-simple', {
+    const response = await api.post('/api/smart-itinerary', {
       city: formData.city,
       audience: formData.audience,
       interests: formData.interests,
@@ -109,8 +109,8 @@ export const generateRealPlacesItinerary = async (formData) => {
   try {
     console.log('🌍 Using working smart-itinerary API:', formData);
     
-    // Используем ТЕСТОВЫЙ API для диагностики
-    const response = await api.post('/api/test-simple', formData);
+    // Используем РАБОЧИЙ API smart-itinerary
+    const response = await api.post('/api/smart-itinerary', formData);
     console.log('✅ Smart itinerary response:', response.data);
     
     // Конвертируем ответ в нужную структуру daily_plan
