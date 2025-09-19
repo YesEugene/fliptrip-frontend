@@ -13,7 +13,7 @@ const getApiBaseUrl = () => {
   
   // В продакшене используем backend URL
   if (import.meta.env.PROD) {
-    return 'https://fliptripbackend.vercel.app'; // Прямая ссылка на backend
+    return 'https://fliptripbackend.vercel.app'; // Правильный URL backend
   }
   
   // В разработке используем localhost
