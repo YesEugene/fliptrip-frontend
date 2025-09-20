@@ -28,3 +28,4 @@ function App() {
 }
 
 export default App;// FORCE REDEPLOY: Frontend restored to working commit 836ed64
+// RESTORE: Back to working frontend
